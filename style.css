@@ -1,0 +1,14 @@
+.starimg {
+  background-image: url(starimg.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100% !important;
+  height: 100vh !important;
+  position: fixed;
+  top: 0;
+  z-index: -1;
+}
+
+.homeworld-filter-container {
+  color: yellowgreen;
+}
