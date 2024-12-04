@@ -10,5 +10,39 @@
 }
 
 .homeworld-filter-container {
+  margin-top: 50px;
   color: yellowgreen;
+}
+
+.wrapper {
+  text-align: center; /* Yatayda ortalar */
+  margin: 50px; /* Üstten boşluk bırakır */
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+  justify-content: center;
+  align-items: start;
+}
+
+.charactersCard {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.53), 0 1px 3px rgba(0, 0, 0, 0.585);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.charactersCard h5 {
+  font-size: 1.25rem;
+  color: #f8f9fa;
+  margin: 0.5rem 0;
+}
+
+.charactersCard p {
+  font-size: 1rem;
+  color: #577797; /* Daha soluk bir renk */
+  margin-bottom: 1rem;
 }

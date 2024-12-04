@@ -122,18 +122,18 @@ let dataSet = [
 
 //satır ve butonu seçtim
 const row = document.querySelector(".row");
-const renderBtn = document.getElementById("renderBtn");
+const toggleBtn = document.getElementById("toggleBtn");
 const homeworldFilterContainer = document.querySelector(
   ".homeworld-filter-container"
 );
 
-// kart yapısını olustur
+// kart yapısını olustur kartları getirirken other kategorisiyle bas kartı
 const createCharacterCard = ({ pic, name, homeworld = "other" }) => {
   return `
     <div class="charactersCard d-flex flex-column align-items-center
-    bg-black fw-bold text-secondary border-light " style="width: 18rem;
+     fw-bold text-secondary border-light " style="width: 18rem;
      col-lg-4 col-sm-6 mb-5">
-      <img src="${pic}" alt="${name}" style="height: 250px width: 80px" class="card-img-top img-fluid" />
+      <img src="${pic}" alt="${name}" style="height: 250px width: 80px" class=" card-img-top img-fluid object-fit-contain" />
       <h5>${name}</h5>
       <p>${homeworld}</p>
     </div>
@@ -142,7 +142,7 @@ const createCharacterCard = ({ pic, name, homeworld = "other" }) => {
 
 //Unique homeworldleri getir
 const getUniqueHomeworlds = (dataSet) => {
-  //homeworld ü yoksa other diye kategorize et
+  //homeworld ü yoksa other diye kategorize et... burda ise radio butonu oluşturuken other oluşturur.
   const homeworldRaw = dataSet.map((items) => items.homeworld ?? "other");
 
   // kucuk harfe cevir sorun olmasın
@@ -151,23 +151,7 @@ const getUniqueHomeworlds = (dataSet) => {
   return [...new Set(homeworldRawLowercase)];
 };
 
-//karakterleri getirme hali ne gelecekse satıra getirme işi
-const renderCharacters = (characters) => {
-  row.innerHTML = characters.map(createCharacterCard);
-};
-
-//basınca olacak olanlar
-const toggleCharacters = () => {
-  if (!row.innerHTML) {
-    renderCharacters(dataSet);
-    renderBtn.textContent = "hide characters";
-  } else {
-    row.innerHTML = "";
-    renderBtn.textContent = "show characters";
-  }
-};
-
-//radio butonlarını burda oluşturduk
+//radio input butonlarını burda oluşturduk
 const createHomeworldFilter = (homeworlds) => {
   homeworldFilterContainer.innerHTML = homeworlds
     .map(
@@ -182,14 +166,31 @@ class="d-flex gap-4 align-content-center " for="homeworld-${homeworld}">${homewo
     )
     .join("");
 };
-// butona dinleyici eklemek
+
+createHomeworldFilter(getUniqueHomeworlds(dataSet));
+
+//karakterleri getirme hali ne gelecekse satıra getirme işi
+const renderCharacters = (characters) => {
+  row.innerHTML = characters.map(createCharacterCard);
+};
+
+//basınca olacak olanlar
+const toggleCharacters = () => {
+  if (!row.innerHTML) {
+    renderCharacters(dataSet);
+    toggleBtn.textContent = "hide characters";
+  } else {
+    row.innerHTML = "";
+    toggleBtn.textContent = "show characters";
+  }
+};
+
+// butona dinleyici eklemek bu olmasa basmak işe yaramaz
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderBtn.addEventListener("click", toggleCharacters);
+  toggleBtn.addEventListener("click", toggleCharacters);
 
-  //radio butonlarını getiren kısım ama bi memleketten 3-5 tane yazılmamasını sağlayan
-  const uniqueHomeworlds = getUniqueHomeworlds(dataSet);
-  createHomeworldFilter(uniqueHomeworlds);
+  //
 });
 
 homeworldFilterContainer.addEventListener("change", (event) => {
